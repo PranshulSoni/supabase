@@ -107,6 +107,7 @@ import { Route as ProjectRefSettingsIntegrationsRouteImport } from './routes/pro
 import { Route as ProjectRefSettingsInfrastructureRouteImport } from './routes/project/$ref/settings/infrastructure'
 import { Route as ProjectRefSettingsGeneralRouteImport } from './routes/project/$ref/settings/general'
 import { Route as ProjectRefSettingsDashboardRouteImport } from './routes/project/$ref/settings/dashboard'
+import { Route as ProjectRefSettingsConfigurationDriftRouteImport } from './routes/project/$ref/settings/configuration-drift'
 import { Route as ProjectRefSettingsApiKeysRouteImport } from './routes/project/$ref/settings/api-keys'
 import { Route as ProjectRefSettingsApiRouteImport } from './routes/project/$ref/settings/api'
 import { Route as ProjectRefSettingsAddonsRouteImport } from './routes/project/$ref/settings/addons'
@@ -155,6 +156,7 @@ import { Route as ProjectRefDatabaseFunctionsRouteImport } from './routes/projec
 import { Route as ProjectRefDatabaseExtensionsRouteImport } from './routes/project/$ref/database/extensions'
 import { Route as ProjectRefDatabaseColumnPrivilegesRouteImport } from './routes/project/$ref/database/column-privileges'
 import { Route as ProjectRefBranchesMergeRequestsRouteImport } from './routes/project/$ref/branches/merge-requests'
+import { Route as ProjectRefBranchesConfigurationDriftRouteImport } from './routes/project/$ref/branches/configuration-drift'
 import { Route as ProjectRefAuthUsersRouteImport } from './routes/project/$ref/auth/users'
 import { Route as ProjectRefAuthUrlConfigurationRouteImport } from './routes/project/$ref/auth/url-configuration'
 import { Route as ProjectRefAuthThirdPartyRouteImport } from './routes/project/$ref/auth/third-party'
@@ -829,6 +831,12 @@ const ProjectRefSettingsDashboardRoute =
     path: '/dashboard',
     getParentRoute: () => ProjectRefSettingsRoute,
   } as any)
+const ProjectRefSettingsConfigurationDriftRoute =
+  ProjectRefSettingsConfigurationDriftRouteImport.update({
+    id: '/configuration-drift',
+    path: '/configuration-drift',
+    getParentRoute: () => ProjectRefSettingsRoute,
+  } as any)
 const ProjectRefSettingsApiKeysRoute =
   ProjectRefSettingsApiKeysRouteImport.update({
     id: '/api-keys',
@@ -1106,6 +1114,12 @@ const ProjectRefBranchesMergeRequestsRoute =
   ProjectRefBranchesMergeRequestsRouteImport.update({
     id: '/merge-requests',
     path: '/merge-requests',
+    getParentRoute: () => ProjectRefBranchesRoute,
+  } as any)
+const ProjectRefBranchesConfigurationDriftRoute =
+  ProjectRefBranchesConfigurationDriftRouteImport.update({
+    id: '/configuration-drift',
+    path: '/configuration-drift',
     getParentRoute: () => ProjectRefBranchesRoute,
   } as any)
 const ProjectRefAuthUsersRoute = ProjectRefAuthUsersRouteImport.update({
@@ -2186,6 +2200,7 @@ export interface FileRoutesByFullPath {
   '/project/$ref/auth/third-party': typeof ProjectRefAuthThirdPartyRoute
   '/project/$ref/auth/url-configuration': typeof ProjectRefAuthUrlConfigurationRoute
   '/project/$ref/auth/users': typeof ProjectRefAuthUsersRoute
+  '/project/$ref/branches/configuration-drift': typeof ProjectRefBranchesConfigurationDriftRoute
   '/project/$ref/branches/merge-requests': typeof ProjectRefBranchesMergeRequestsRoute
   '/project/$ref/database/column-privileges': typeof ProjectRefDatabaseColumnPrivilegesRoute
   '/project/$ref/database/extensions': typeof ProjectRefDatabaseExtensionsRoute
@@ -2234,6 +2249,7 @@ export interface FileRoutesByFullPath {
   '/project/$ref/settings/addons': typeof ProjectRefSettingsAddonsRoute
   '/project/$ref/settings/api': typeof ProjectRefSettingsApiRoute
   '/project/$ref/settings/api-keys': typeof ProjectRefSettingsApiKeysRouteWithChildren
+  '/project/$ref/settings/configuration-drift': typeof ProjectRefSettingsConfigurationDriftRoute
   '/project/$ref/settings/dashboard': typeof ProjectRefSettingsDashboardRoute
   '/project/$ref/settings/general': typeof ProjectRefSettingsGeneralRoute
   '/project/$ref/settings/infrastructure': typeof ProjectRefSettingsInfrastructureRoute
@@ -2488,6 +2504,7 @@ export interface FileRoutesByTo {
   '/project/$ref/auth/third-party': typeof ProjectRefAuthThirdPartyRoute
   '/project/$ref/auth/url-configuration': typeof ProjectRefAuthUrlConfigurationRoute
   '/project/$ref/auth/users': typeof ProjectRefAuthUsersRoute
+  '/project/$ref/branches/configuration-drift': typeof ProjectRefBranchesConfigurationDriftRoute
   '/project/$ref/branches/merge-requests': typeof ProjectRefBranchesMergeRequestsRoute
   '/project/$ref/database/column-privileges': typeof ProjectRefDatabaseColumnPrivilegesRoute
   '/project/$ref/database/extensions': typeof ProjectRefDatabaseExtensionsRoute
@@ -2533,6 +2550,7 @@ export interface FileRoutesByTo {
   '/project/$ref/realtime/settings': typeof ProjectRefRealtimeSettingsRoute
   '/project/$ref/settings/addons': typeof ProjectRefSettingsAddonsRoute
   '/project/$ref/settings/api': typeof ProjectRefSettingsApiRoute
+  '/project/$ref/settings/configuration-drift': typeof ProjectRefSettingsConfigurationDriftRoute
   '/project/$ref/settings/dashboard': typeof ProjectRefSettingsDashboardRoute
   '/project/$ref/settings/general': typeof ProjectRefSettingsGeneralRoute
   '/project/$ref/settings/infrastructure': typeof ProjectRefSettingsInfrastructureRoute
@@ -2800,6 +2818,7 @@ export interface FileRoutesById {
   '/project/$ref/auth/third-party': typeof ProjectRefAuthThirdPartyRoute
   '/project/$ref/auth/url-configuration': typeof ProjectRefAuthUrlConfigurationRoute
   '/project/$ref/auth/users': typeof ProjectRefAuthUsersRoute
+  '/project/$ref/branches/configuration-drift': typeof ProjectRefBranchesConfigurationDriftRoute
   '/project/$ref/branches/merge-requests': typeof ProjectRefBranchesMergeRequestsRoute
   '/project/$ref/database/column-privileges': typeof ProjectRefDatabaseColumnPrivilegesRoute
   '/project/$ref/database/extensions': typeof ProjectRefDatabaseExtensionsRoute
@@ -2848,6 +2867,7 @@ export interface FileRoutesById {
   '/project/$ref/settings/addons': typeof ProjectRefSettingsAddonsRoute
   '/project/$ref/settings/api': typeof ProjectRefSettingsApiRoute
   '/project/$ref/settings/api-keys': typeof ProjectRefSettingsApiKeysRouteWithChildren
+  '/project/$ref/settings/configuration-drift': typeof ProjectRefSettingsConfigurationDriftRoute
   '/project/$ref/settings/dashboard': typeof ProjectRefSettingsDashboardRoute
   '/project/$ref/settings/general': typeof ProjectRefSettingsGeneralRoute
   '/project/$ref/settings/infrastructure': typeof ProjectRefSettingsInfrastructureRoute
@@ -3114,6 +3134,7 @@ export interface FileRouteTypes {
     | '/project/$ref/auth/third-party'
     | '/project/$ref/auth/url-configuration'
     | '/project/$ref/auth/users'
+    | '/project/$ref/branches/configuration-drift'
     | '/project/$ref/branches/merge-requests'
     | '/project/$ref/database/column-privileges'
     | '/project/$ref/database/extensions'
@@ -3162,6 +3183,7 @@ export interface FileRouteTypes {
     | '/project/$ref/settings/addons'
     | '/project/$ref/settings/api'
     | '/project/$ref/settings/api-keys'
+    | '/project/$ref/settings/configuration-drift'
     | '/project/$ref/settings/dashboard'
     | '/project/$ref/settings/general'
     | '/project/$ref/settings/infrastructure'
@@ -3416,6 +3438,7 @@ export interface FileRouteTypes {
     | '/project/$ref/auth/third-party'
     | '/project/$ref/auth/url-configuration'
     | '/project/$ref/auth/users'
+    | '/project/$ref/branches/configuration-drift'
     | '/project/$ref/branches/merge-requests'
     | '/project/$ref/database/column-privileges'
     | '/project/$ref/database/extensions'
@@ -3461,6 +3484,7 @@ export interface FileRouteTypes {
     | '/project/$ref/realtime/settings'
     | '/project/$ref/settings/addons'
     | '/project/$ref/settings/api'
+    | '/project/$ref/settings/configuration-drift'
     | '/project/$ref/settings/dashboard'
     | '/project/$ref/settings/general'
     | '/project/$ref/settings/infrastructure'
@@ -3727,6 +3751,7 @@ export interface FileRouteTypes {
     | '/project/$ref/auth/third-party'
     | '/project/$ref/auth/url-configuration'
     | '/project/$ref/auth/users'
+    | '/project/$ref/branches/configuration-drift'
     | '/project/$ref/branches/merge-requests'
     | '/project/$ref/database/column-privileges'
     | '/project/$ref/database/extensions'
@@ -3775,6 +3800,7 @@ export interface FileRouteTypes {
     | '/project/$ref/settings/addons'
     | '/project/$ref/settings/api'
     | '/project/$ref/settings/api-keys'
+    | '/project/$ref/settings/configuration-drift'
     | '/project/$ref/settings/dashboard'
     | '/project/$ref/settings/general'
     | '/project/$ref/settings/infrastructure'
@@ -4733,6 +4759,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectRefSettingsDashboardRouteImport
       parentRoute: typeof ProjectRefSettingsRoute
     }
+    '/project/$ref/settings/configuration-drift': {
+      id: '/project/$ref/settings/configuration-drift'
+      path: '/configuration-drift'
+      fullPath: '/project/$ref/settings/configuration-drift'
+      preLoaderRoute: typeof ProjectRefSettingsConfigurationDriftRouteImport
+      parentRoute: typeof ProjectRefSettingsRoute
+    }
     '/project/$ref/settings/api-keys': {
       id: '/project/$ref/settings/api-keys'
       path: '/api-keys'
@@ -5067,6 +5100,13 @@ declare module '@tanstack/react-router' {
       path: '/merge-requests'
       fullPath: '/project/$ref/branches/merge-requests'
       preLoaderRoute: typeof ProjectRefBranchesMergeRequestsRouteImport
+      parentRoute: typeof ProjectRefBranchesRoute
+    }
+    '/project/$ref/branches/configuration-drift': {
+      id: '/project/$ref/branches/configuration-drift'
+      path: '/configuration-drift'
+      fullPath: '/project/$ref/branches/configuration-drift'
+      preLoaderRoute: typeof ProjectRefBranchesConfigurationDriftRouteImport
       parentRoute: typeof ProjectRefBranchesRoute
     }
     '/project/$ref/auth/users': {
@@ -6451,11 +6491,14 @@ const ProjectRefAuthRouteWithChildren = ProjectRefAuthRoute._addFileChildren(
 )
 
 interface ProjectRefBranchesRouteChildren {
+  ProjectRefBranchesConfigurationDriftRoute: typeof ProjectRefBranchesConfigurationDriftRoute
   ProjectRefBranchesMergeRequestsRoute: typeof ProjectRefBranchesMergeRequestsRoute
   ProjectRefBranchesIndexRoute: typeof ProjectRefBranchesIndexRoute
 }
 
 const ProjectRefBranchesRouteChildren: ProjectRefBranchesRouteChildren = {
+  ProjectRefBranchesConfigurationDriftRoute:
+    ProjectRefBranchesConfigurationDriftRoute,
   ProjectRefBranchesMergeRequestsRoute: ProjectRefBranchesMergeRequestsRoute,
   ProjectRefBranchesIndexRoute: ProjectRefBranchesIndexRoute,
 }
@@ -6764,6 +6807,7 @@ interface ProjectRefSettingsRouteChildren {
   ProjectRefSettingsAddonsRoute: typeof ProjectRefSettingsAddonsRoute
   ProjectRefSettingsApiRoute: typeof ProjectRefSettingsApiRoute
   ProjectRefSettingsApiKeysRoute: typeof ProjectRefSettingsApiKeysRouteWithChildren
+  ProjectRefSettingsConfigurationDriftRoute: typeof ProjectRefSettingsConfigurationDriftRoute
   ProjectRefSettingsDashboardRoute: typeof ProjectRefSettingsDashboardRoute
   ProjectRefSettingsGeneralRoute: typeof ProjectRefSettingsGeneralRoute
   ProjectRefSettingsInfrastructureRoute: typeof ProjectRefSettingsInfrastructureRoute
@@ -6780,6 +6824,8 @@ const ProjectRefSettingsRouteChildren: ProjectRefSettingsRouteChildren = {
   ProjectRefSettingsAddonsRoute: ProjectRefSettingsAddonsRoute,
   ProjectRefSettingsApiRoute: ProjectRefSettingsApiRoute,
   ProjectRefSettingsApiKeysRoute: ProjectRefSettingsApiKeysRouteWithChildren,
+  ProjectRefSettingsConfigurationDriftRoute:
+    ProjectRefSettingsConfigurationDriftRoute,
   ProjectRefSettingsDashboardRoute: ProjectRefSettingsDashboardRoute,
   ProjectRefSettingsGeneralRoute: ProjectRefSettingsGeneralRoute,
   ProjectRefSettingsInfrastructureRoute: ProjectRefSettingsInfrastructureRoute,
