@@ -1,5 +1,17 @@
+import { Check } from 'lucide-react'
 import { useState } from 'react'
-import { Badge, Card, CardContent, CardHeader, CardTitle, cn } from 'ui'
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  cn,
+  Separator,
+  ToggleGroup,
+  ToggleGroupItem,
+} from 'ui'
+import { FormItemLayout } from 'ui-patterns/form/FormItemLayout/FormItemLayout'
 
 import { AnonIcon, AuthenticatedIcon, ServiceRoleIcon } from './Icons'
 import { RoleImpersonationRadio } from './RoleImpersonationRadio'
@@ -18,6 +30,7 @@ export interface RoleImpersonationSelectorProps {
   disallowAuthenticatedOption?: boolean
   title?: string
   orientation?: 'horizontal' | 'vertical'
+  compact?: boolean
 }
 
 /**
@@ -40,6 +53,7 @@ type RoleImpersonationSelectorInterfaceProps = RoleImpersonationSelectorProps & 
 export const RoleImpersonationSelectorInterface = ({
   state,
   orientation,
+  compact = false,
   serviceRoleLabel = 'Postgres',
   disallowAuthenticatedOption = false,
   header = 'Impersonate a database role',
@@ -76,6 +90,71 @@ export const RoleImpersonationSelectorInterface = ({
     }
 
     setSelectedOption(value)
+  }
+
+  if (compact) {
+    return (
+      <div className="flex flex-col p-3">
+        <form
+          onSubmit={(event) => {
+            event.preventDefault()
+          }}
+        >
+          <FormItemLayout isReactForm={false} layout="horizontal" size="tiny" label="Role">
+            <ToggleGroup
+              type="single"
+              orientation="vertical"
+              value={selectedOption}
+              onValueChange={(value) => {
+                if (value) onSelectedChange(value as PostgrestRole)
+              }}
+              variant="default"
+              aria-label="Run query as role"
+              className="w-full flex-col items-stretch gap-0.5"
+            >
+              <ToggleGroupItem value="service_role" className="w-full justify-between text-left">
+                <span className="flex min-w-0 flex-col items-start">
+                  <span>{serviceRoleLabel === 'postgres' ? 'Postgres' : serviceRoleLabel}</span>
+                  <span className="text-xs font-normal text-foreground-lighter">Superuser</span>
+                </span>
+                {selectedOption === 'service_role' && <Check size={14} />}
+              </ToggleGroupItem>
+
+              <ToggleGroupItem value="anon" className="w-full justify-between text-left">
+                <span className="flex min-w-0 flex-col items-start">
+                  <span>Anonymous</span>
+                  <span className="text-xs font-normal text-foreground-lighter">Not logged in</span>
+                </span>
+                {selectedOption === 'anon' && <Check size={14} />}
+              </ToggleGroupItem>
+
+              {!disallowAuthenticatedOption && (
+                <ToggleGroupItem value="authenticated" className="w-full justify-between text-left">
+                  <span className="flex min-w-0 flex-col items-start">
+                    <span>Authenticated</span>
+                    <span className="text-xs font-normal text-foreground-lighter">
+                      Logged-in user
+                    </span>
+                  </span>
+                  {selectedOption === 'authenticated' && <Check size={14} />}
+                </ToggleGroupItem>
+              )}
+            </ToggleGroup>
+          </FormItemLayout>
+
+          {!disallowAuthenticatedOption && (
+            <>
+              <Separator className="my-2.5" />
+              <UserImpersonationSelector
+                state={state}
+                compact
+                disabled={selectedOption !== 'authenticated'}
+              />
+            </>
+          )}
+        </form>
+      </div>
+    )
   }
 
   return (
