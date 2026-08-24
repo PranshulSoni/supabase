@@ -16,6 +16,7 @@ export async function approveOAuthAppsAuthorize({ id, slug }: OAuthAppsAuthorize
   if (!id) throw new Error('Authorization request id is required')
   if (!slug) throw new Error('Organization slug is required')
 
+  await new Promise((resolve) => setTimeout(resolve, 300))
   return getMockOAuthAppsAuthorizeRedirect(id, { approved: true })
 }
 
